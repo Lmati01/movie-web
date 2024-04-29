@@ -2,7 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 import api from './api/axiosConfig';
 import { useState,useEffect } from 'react';
-import BasicExample from './components/test';
+import Layout from './components/Layout';
+import { Route, Routes } from 'react-router-dom';
+import Home from './components/home/Home';
+
+
 function App() {  
 
   const [movies, setMovies] = useState();
@@ -10,7 +14,7 @@ function App() {
   const getMovies = async () =>{
     try
     {
-      const response = await api.get("api/v1/movies");
+      const response = await api.get("http://localhost:8080/api/v1/movies");
       
       console.log(response.data);
 
@@ -18,7 +22,7 @@ function App() {
 
     }catch(err)
     {
-      console.log(err);
+      console.log("err");
     }
   }
 
@@ -30,22 +34,13 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path='/' element={<Layout/>}></Route>
+        <Route path='/' element={<Home  movies={movies} />}></Route>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
+n
